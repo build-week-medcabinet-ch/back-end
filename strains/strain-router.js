@@ -4,7 +4,7 @@ const config = require("../knexfile")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-const {add,getAll,findBy,update} = require("./strain-model")
+const {add,getAll,findBy,update,remove} = require("./strain-model")
 
 
 router.post("/add", async (req,res,next) => {
@@ -29,13 +29,31 @@ router.post("/add", async (req,res,next) => {
 })
 
 router.get("/all", async (req,res,next) => {
-    
     try {
         const strains = await getAll()
         res.status(200).json(strains)
     } catch(err){
         next(err)
     }
+})
+
+router.put("/edit/:id",(req,res) => {
+    console.log(req.params.id)
+    update(Number(req.params.id), req.body)
+        .then(res.status(200).json({message: "Strain is edited!"}))
+    .catch(err => {
+        console.log(err)
+        res.status(401).json({message: "something is wrong!"})
+    })
+})
+
+router.delete("/:id", (req,res) => {
+    remove(Number(req.params.id))
+    .then(res.status(200).json({message: "strain has been deleted"}))
+    .catch(err => {
+        console.log(err)
+        res.status(404).json({message: "strain not found"})
+    })
 })
 
 

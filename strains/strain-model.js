@@ -4,7 +4,8 @@ module.exports = {
     add,
     getAll,
     findBy,
-    update
+    update,
+    remove
 }
 
 function add(strain) {
@@ -22,7 +23,13 @@ function findBy(filter) {
 }
 
 function update(id, changes) {
-    return db("projects")
+    return db("saved_strains")
       .where("id", id)
       .update(changes)
+  }
+
+  function remove(id) {
+    return db("saved_strains")
+      .where("id", id)
+      .del();
   }
