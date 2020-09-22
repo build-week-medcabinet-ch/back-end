@@ -3,10 +3,11 @@ const knex = require("knex")
 const config = require("../knexfile")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const authenticate = require("../auth/auth-middleware")
 
 const {add, getAllUsers, findBy} = require("./auth-model")
 
-router.get("/users", async (req,res,next) => {
+router.get("/users", authenticate(), async (req,res,next) => {
     getAllUsers()
         .then(users => {
             res.status(200).json(users)

@@ -3,11 +3,11 @@ const knex = require("knex")
 const config = require("../knexfile")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-
+const authenticate = require("../auth/auth-middleware")
 const {add,getAll,findBy,update,remove} = require("./strain-model")
 
 
-router.post("/add", async (req,res,next) => {
+router.post("/add", authenticate(), async (req,res,next) => {
     try {
         if(req.body){
             const {user_id,strain_name,type,rating,effects,flavors,description} = req.body
@@ -28,7 +28,7 @@ router.post("/add", async (req,res,next) => {
     }
 })
 
-router.get("/all", async (req,res,next) => {
+router.get("/all", authenticate(), async (req,res,next) => {
     try {
         const strains = await getAll()
         res.status(200).json(strains)
@@ -37,7 +37,7 @@ router.get("/all", async (req,res,next) => {
     }
 })
 
-router.put("/edit/:id",(req,res) => {
+router.put("/edit/:id", authenticate(), (req,res) => {
     console.log(req.params.id)
     update(Number(req.params.id), req.body)
         .then(res.status(200).json({message: "Strain is edited!"}))
@@ -47,7 +47,7 @@ router.put("/edit/:id",(req,res) => {
     })
 })
 
-router.delete("/:id", (req,res) => {
+router.delete("/:id", authenticate() ,(req,res) => {
     remove(Number(req.params.id))
     .then(res.status(200).json({message: "strain has been deleted"}))
     .catch(err => {
