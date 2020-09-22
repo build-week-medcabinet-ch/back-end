@@ -6,19 +6,19 @@ User -
 
   {
   "username",
-  "password"
+   "password"
   }
   
 Strain - 
 
   { 
-  "user_id": 
-  "strain_name"
-  "type"
-  "rating"
-  "effects"
-  "flavors"
-  "description"
+  "user_id", 
+   "strain_name",
+   "type",
+   "rating",
+   "effects",
+   "flavors",
+   "description",
   }
   
   End-Points
