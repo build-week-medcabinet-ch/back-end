@@ -9,7 +9,7 @@ exports.seed = function(knex) {
           user_id: 1,
           strain_name: "Blue Dream",
           type: "Hybrid",
-          rating: 4.3,
+          rating: 4,
           effects: "Energetic,relaxed",
           flavors: "lemon zesty",
           description: "very good bud, A+"
