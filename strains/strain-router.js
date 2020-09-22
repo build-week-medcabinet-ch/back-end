@@ -3,6 +3,7 @@ const knex = require("knex")
 const config = require("../knexfile")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const authenticate = require("../auth/auth-middleware")
 const {add,getAll,findBy,update,remove} = require("./strain-model")
 

@@ -3,6 +3,7 @@ const knex = require("knex")
 const config = require("../knexfile")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const authenticate = require("../auth/auth-middleware")
 
 const {add, getAllUsers, findBy} = require("./auth-model")
@@ -44,6 +45,7 @@ router.post('/login', (req, res) => {
                 const token = generateToken(user);
                 delete user.password
                 res.status(200).json({
+                    id: user.id,
                     message: `Welome ${user.username}`,
                     token,
                 });
